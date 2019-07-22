@@ -56,6 +56,6 @@ if __name__ == "__main__":
     filename = "images/"
 
     mongo_database.findByName(name)
-    mongo_database.findByID(id)
+    mongo_database.findByID(id_number)
     # mongo_database.uploadphoto(filename,name)
     # mongo_database.downloadphoto(mongo_database.uploadphoto(filename))
