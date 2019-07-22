@@ -14,48 +14,72 @@ class RemSensDB():
 
     #creats the database
     def DataBaseInitialize(self):
-        # run code that opens the database and stores it as an object
-        pass
+        client = pymongo.MongoClient()
+        #Creating a client
+        self.db = client["database"]
 
-    def insertData(self, json_data):
-        # insert data into the database
-        # the data is in a JSON format https://www.w3schools.com/js/js_json_intro.asp
-        pass
+        #storing data
+        self.fs = gridfs.GridFS(self.db)
 
-    def findById(self, id_number):
-        # given the id number of a MongoDB element, return the entry in the database
-        pass
+    #inserts data into the database from the json file
+    #THIS IS NOT USED TO INSERT PHOTO'S - ONLY DATA****
+    def insertData(self, js):
+        self.db["raw_images"].insert_many(js)
+
+    #finds the object from a given id (i)
+    def findByID(self, i):
+        data = False
+        try:
+            ObjectId(i)
+        except Exception as e:
+            raise AssertionError("Invalid ID")
+        for grid_out in self.fs.find({"_id": ObjectId(i)}):
+            data = grid_out.read()
+
+        return data
 
 
-    def findByName(self, image_name):
-        # given the name of an image in the database
-        # return the database entry
-        pass
+    #finds the object from a given name (n)
+    def findByName(self, n):
+        for grid_out in self.fs.find({"filename": n}):
+            data = grid_out.read()
+
+        return data
 
     # store the data in the database. Returns the id of the file in gridFS
-    def uploadphoto(self, b, image_name):
-        # insert inputted data into the database
-        pass
+    def uploadphoto(self, b, name):
+        with open(b, 'rb') as b:
+            store = self.fs.put(b, filename = name)
+        return store
 
-    def downloadphoto(self, db_entry):
-        # given a database entry
-        # return the enclosed image file
-        pass
+# create an output file and store the image in the output file
+    def downloadphoto(self, a):
+        #retrieving data and returning .jpg in bytes
+        outputdata = self.fs.get(a).read()
+        return outputdata
 
     def __init__(self):
         self.DataBaseInitialize()
         #self.insertData()
 
 if __name__ == "__main__":
-    # test data
-    
-    mongo_database = RemSensDB()
+    dbMan = RemSensDB()
 
-    name = "image1"
-    id_number = "5d31ceeff814e0b3a9fe59de"
+    #---------------TEST VARIABLES--------------------#
+    na = "image1"
+    id = "5d31ceeff814e0b3a9fe59de"
+    n = "image1"
     filename = "images/"
 
-    mongo_database.findByName(name)
-    mongo_database.findById(id_number)
-    # mongo_database.uploadphoto(filename,name)
-    # mongo_database.downloadphoto(mongo_database.uploadphoto(filename))
+    #-------------------METHODS------------------------#
+
+    #++++++++++++DO NOT USE++++++++++++++++#
+    #dbMan.insertData(file)
+    #dbMan.queryDB(query)
+    #dbMan.findByDate(da)
+
+    #+++++++++++USE++++++++++++++++++++++++#
+    dbMan.findByName(na)
+    dbMan.findByID(id)
+    #dbMan.uploadphoto(filename,n)
+    #dbMan.downloadphoto(dbMan.uploadphoto(filename))
