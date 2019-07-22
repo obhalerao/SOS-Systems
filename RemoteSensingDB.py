@@ -17,27 +17,27 @@ class RemSensDB():
         # run code that opens the database and stores it as an object
         pass
 
-    def insertData(self, js):
+    def insertData(self, json_data):
         # insert data into the database
         # the data is in a JSON format https://www.w3schools.com/js/js_json_intro.asp
         pass
 
-    def findByID(self, id_number):
+    def findById(self, id_number):
         # given the id number of a MongoDB element, return the entry in the database
         pass
 
 
-    def findByName(self, n):
+    def findByName(self, image_name):
         # given the name of an image in the database
         # return the database entry
         pass
 
     # store the data in the database. Returns the id of the file in gridFS
-    def uploadphoto(self, b, name):
+    def uploadphoto(self, b, image_name):
         # insert inputted data into the database
         pass
 
-    def downloadphoto(self, a):
+    def downloadphoto(self, db_entry):
         # given a database entry
         # return the enclosed image file
         pass
@@ -56,6 +56,6 @@ if __name__ == "__main__":
     filename = "images/"
 
     mongo_database.findByName(name)
-    mongo_database.findByID(id)
+    mongo_database.findById(id_number)
     # mongo_database.uploadphoto(filename,name)
     # mongo_database.downloadphoto(mongo_database.uploadphoto(filename))
