@@ -1,6 +1,8 @@
 Contributors: Omkar Bhalerao, Shuyu Cao, Serena Behera
 ## Access Images with Flask
 
+hi 
+
 This repository accesses images from a Raspberry Pi 0 W and inserts them into a MongoDB database.
 
 ## Installation
