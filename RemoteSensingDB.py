@@ -14,7 +14,7 @@ class RemSensDB():
 
     #creats the database
     def DataBaseInitialize(self):
-        client = pymongo.MongoClient("mognodb://127.0.0.1/datatbase")
+        client = pymongo.MongoClient("mongodb://127.0.0.1/database")
         #Creating a client
         self.db = client["database"]
 
