@@ -14,7 +14,7 @@ class RemSensDB():
 
     #creats the database
     def DataBaseInitialize(self):
-        client = pymongo.MongoClient()
+        client = pymongo.MongoClient("mognodb://127.0.0.1/datatbase")
         #Creating a client
         self.db = client["database"]
 
@@ -68,8 +68,8 @@ if __name__ == "__main__":
     #---------------TEST VARIABLES--------------------#
     na = "image1"
     id = "5d31ceeff814e0b3a9fe59de"
-    n = "image1"
-    filename = "images/"
+    n = "image1.jpg"
+    filename = ""
 
     #-------------------METHODS------------------------#
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     #dbMan.findByDate(da)
 
     #+++++++++++USE++++++++++++++++++++++++#
-    dbMan.findByName(na)
-    dbMan.findByID(id)
-    #dbMan.uploadphoto(filename,n)
-    #dbMan.downloadphoto(dbMan.uploadphoto(filename))
+    #dbMan.findByName(na)
+    #dbMan.findByID(id)
+    dbMan.uploadphoto(filename, n)
+    dbMan.downloadphoto(dbMan.uploadphoto(filename))
